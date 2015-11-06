@@ -1,0 +1,6 @@
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\bin\skyforbusiness.dll.config
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\bin\skyforbusiness.dll
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\bin\skyforbusiness.pdb
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\obj\Debug\skyforbusiness.csprojResolveAssemblyReference.cache
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\obj\Debug\skyforbusiness.dll
+D:\Projects\MDLIVE\skyforbusiness\skyforbusiness\obj\Debug\skyforbusiness.pdb

@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Conference</title>
+</head>
+<body>
+
+    <div class=" header">
+        <h2>Schedule Conference</h2>
+
+        <div>
+            <div id="scheduleMeeting" class="button">Schedule a Meeting</div> 
+       
+    </div>
+
+    <div>
+        <h2>Meering Uri:</h2>
+        <input id="meetingUri" class="input" placeholder="Meeting URI "/>
+    </div>
+    <div>
+        <h2>Meering JoinUrl(For joining from web):</h2>
+        <input id="joinUrl" class="input" placeholder="Meeting joinUrl "/>
+        
+    </div>
+   </div>
+    
+    <div class="header">
+
+        <h2>Meeting Details</h2>
+
+       
+
+        <div>
+            <div id="meetingDetails" class="button">Meeting Details</div>
+
+        </div>
+        Meeting State: <span id="lblMeetingState"></span><br />
+        
+        <h3>Provider Details</h3>
+
+        <span id="providerName"></span><br />
+        <span id="presenceStatus"></span><br />
+        <span id="activity"></span><br />
+            
+   </div>
+
+   <div class="header">
+            <h3>Provider Details</h3>
+           
+            No of Paticipant :  <span id="lblNoOfParticipant"></span><br />
+            Participants: <ul id='lblPartitcipants'></ul> <br/>
+
+            <script src="resources/scripts/schedule-meeting.js"></script>
+
+
+</body>
+</html>
