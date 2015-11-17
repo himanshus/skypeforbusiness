@@ -18,9 +18,15 @@
         }
     });
 
+    //Get Base Url
+    function baseUrl() {
+        var href = window.location.href.split('/');
+        return href[0] + '//' + href[2] + '/' + href[3] + '/';
+    }
 
-    function loadPage(module){
-        var url = "/S4B/skypeactivity/" + module + ".html";
+    function loadPage(module) {
+
+        var url = baseUrl() + "skypeactivity/" + module + ".html";
         $.get(url, function(html){
             $(".content").html(html);
             $(".sign-in").show();

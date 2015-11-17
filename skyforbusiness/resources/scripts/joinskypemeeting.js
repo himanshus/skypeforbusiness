@@ -14,17 +14,33 @@ $(function () {
 
         var userName, password, meetingUri;
 
+        //Provider UserName
         userName = "kima078@metio.ms";
+        //Provider Passwork
         password = "UCW4*fun!";
+        
+        /*Get the meetingUri after scheduling the meeting. In real implementation,
+         we need to get this value from DB or any other storage based on
+         storing the meetingUri after scheduleMeeting implementation.
+       */
 
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:YOEPQ9NB";
+        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:91Q8WWXG";
 
+        //Join the conference using Provide credentials and meetingUri
         JoinConference(userName, password, meetingUri);
 
        
     });
 
 
+    /* Join conference by Provider
+      @param {String} userName - Provider User Name
+      @param {String} password - Provider password
+      @param {String} meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
+       we need to get this value from DB or any other storage based on
+       storing the meetingUri after scheduleMeeting implementation.
+      
+     */
     function JoinConference(userName, password, meetingUri) {
 
 
@@ -43,6 +59,7 @@ $(function () {
 
             alert("Join Conference...");
 
+            //Join existing meeting 
             JoinExistingConference(meetingUri);
 
         }, function (error) {
@@ -56,11 +73,17 @@ $(function () {
 
     }
 
+    /* Join existing meeting/conference using meetingUri got from scheduledMeeting
+     @param {String} meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
+      we need to get this value from DB or any other storage based on
+      storing the meetingUri after scheduleMeeting implementation.
+     
+    */
     function JoinExistingConference(meetingUri)
     {
 
         var conference, videomeeting, conv;
-
+ 
         //Get an instance of Conversation
         conference = client.conversationsManager.getConversationByUri(meetingUri);
 
@@ -75,44 +98,5 @@ $(function () {
         });
 
     }
-
-    function GetAvailablity(me)
-    {
-        me.displayName.get().then(function (value) {
-            $('#providerName').text(value);
-        });
-
-        //Update Presence Status
-        me.status.get().then(function (status) {
-            $('#presenceStatus').text("Presence Status: " + status);
-        });
-
-
-        //Update Presence Status
-        me.status.changed(function (status) {
-            $('#presenceStatus').text("Presence Status: " + status);
-        });
-
-        //Update Presence Status
-        me.note.changed(function (note) {
-            $('#note').text("Note: " + note);
-        });
-
-        ////Update Presence Status
-        //me.activity.changed(function (activity) {
-        //    $('#activity').text("Activity: " + activity);
-        //});
-
-        //Update Presence Status
-        me.location.changed(function (location) {
-            $('#location').text("Location: " + location);
-        });
-
-        me.subscribe();
-
-        
-
-    }
-
 
 });

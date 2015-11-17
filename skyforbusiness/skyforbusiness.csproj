@@ -70,6 +70,7 @@
     <Content Include="Patient.html" />
     <Content Include="provider.html" />
     <Content Include="resources\scripts\schedule-meeting.js" />
+    <Content Include="resources\scripts\skypesdk.js" />
     <Content Include="skypeactivity\patient-anonymous-join.html" />
     <Content Include="skypeactivity\provider-conference-join.html" />
     <Content Include="resources\fonts\office365icons.eot" />

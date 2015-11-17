@@ -9,15 +9,22 @@ $(function () {
 
     var client = window.skypeWebApp;
 
+    //Provider SIP to be used to get Provider status
     var providerSIP = "kima078@metio.ms"; 
 
-    var meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:YOEPQ9NB";
+    /* meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
+       we need to get this value from DB or any other storage based on
+       storing the meetingUri after scheduleMeeting implementation.
+      
+     */
+    var meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:J2XIW9SA";
 
     // start an online meeting and start video
     $('#scheduleMeeting').click(function () {
 
         var userName, password, meetingUri;
 
+        
         userName = "samb078@metio.ms";
         password = "UCW4*fun!";
 
@@ -35,7 +42,7 @@ $(function () {
             console.log('Signed in as ' + client.personsAndGroupsManager.mePerson.displayName());
           
 
-            alert("Schedule Meeting");
+            alert("Scheduled A Meeting");
 
             var meetingDescription = "Schedule a Meeting";
             var meetingSubject = "Provider-Patient Conference";
@@ -141,31 +148,37 @@ $(function () {
             subject: subject,
             description: description,
             expirationTime: expirationTime
-
+            
 
         }).then(function (meeting) {
            
-            alert("Done!!!");
+            alert("Thank you!");   
 
+            
             return client.startMeeting({
                 uri: meeting.onlineMeetingUri()
-
             });
+          
+            
         }).then(function (conversation) {
             
-           // debugger;
-
             //Hide Modal
             $(".modal").hide();
-
+        
             //get Meeting Uri
             $('#meetingUri').val(conversation.meeting.uri());
 
             //Get Meeting JoinUrl that is used when the online meeting is joined from the web.
             $('#joinUrl').val(conversation.meeting.joinUrl());
 
+            //Start Video Service
+            videomeeting = conversation.videoService.start().then(function () {
 
-         //  SignOut();
+
+            });
+
+
+        //  SignOut();
 
             
         });
@@ -231,38 +244,36 @@ $(function () {
     //Get Meeting status, Participants and their status
     function GetMeetingDetails(meetingUri)
     {
-        alert("hii");
-        alert(meetingUri);
+       
+
         //Get an instance of Conversation
         var conversation = client.conversationsManager.getConversationByUri(meetingUri);
 
-       // alert(conversation.meeting.state());
+        //alert(conversation.meeting.state());
 
-        $('#lblNoOfParticipant').text(conversation.participants.size());
+        //alert(conversation.participants.size());
+
+        alert(conversation.state());
+        $('#lblMeetingState').text(conversation.meeting.state());
 
        // debugger;
         //Get No of Participants
         $('#lblNoOfParticipant').text(conversation.participants.size());
 
-        var participants = conversation.participants;
-        participants.forEach(function (participant) {
+      
 
-            $("#lblPartitcipants").append('<li><b>' + "Joined:" + '</b>&nbsp; ' + participant.person.displayName() + '. Role:' + role + '</li>');
+        //Get participants details
+        conversation.participants.added(function (participant) {
+            participant.role.get().then(function (role) {
 
+                $("#lblPartitcipants").append('<li><b>' + "Joined:" + '</b>&nbsp; ' + participant.person.displayName() + '. Role:' + role + '</li>');
+
+            });
         });
 
-        ////Get participants details
-        //conversation.participants.added(function (participant) {
-        //    participant.role.get().then(function (role) {
-
-        //        $("#lblPartitcipants").append('<li><b>' + "Joined:" + '</b>&nbsp; ' + participant.person.displayName() + '. Role:' + role + '</li>');
-
-        //    });
-        //});
-
-        //conversation.participants.removed(function (participant) {
-        //    $("#lblPartitcipants").append('<li><b>' + "Left:" + '</b>&nbsp; ' + participant.person.displayName() + '</li>');
-        //});
+        conversation.participants.removed(function (participant) {
+            $("#lblPartitcipants").append('<li><b>' + "Left:" + '</b>&nbsp; ' + participant.person.displayName() + '</li>');
+        });
 
     }
 
