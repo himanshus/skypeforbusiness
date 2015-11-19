@@ -1,6 +1,6 @@
 ﻿
 /**
- * This script demonstrates how to Sign in the anonymous user using the meeting URI
+ * This script demonstrates how to Sign in the anonymous user using the joinUrl
  */
 
 $(function () {
@@ -10,7 +10,7 @@ $(function () {
 
 
     // when the user clicks on the "Start Conference" button
-    $('#btn-sign-in').click(function () {
+    $('#joinConference').click(function () {
 
         var joinUrl;
         $(".modal").show();
@@ -19,7 +19,10 @@ $(function () {
           we need to get this value from DB or any other storage based on
           storing the joinUrl after scheduleMeeting implementation.
         */
-        joinUrl = "https://meet.metio.ms/samb078/91Q8WWXG";
+
+        joinUrl = "https://meet.metio.ms/samb078/YNWFFS4O";
+        
+        //joinUrl = localStorage.getItem("joinUrl"); //Get the value from localStorage
 
         //Join the conference using joinUrl
         JoinConferenceAnonymously(joinUrl);

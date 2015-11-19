@@ -1,9 +1,15 @@
-﻿$(function () {
+﻿var globalMeetingUri, globalJoinUrl;
+
+
+$(function () {
     'use strict';
 
 
 
     function initializeSkypeApi() {
+
+      
+
         Skype.initialize({
             apiKey: 'SWX-BUILD-SDK',
         }, function (api) {
