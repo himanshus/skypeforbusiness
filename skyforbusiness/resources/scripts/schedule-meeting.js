@@ -170,16 +170,6 @@ $(function () {
 
             //Get Meeting JoinUrl that is used when the online meeting is joined from the web.
             $('#joinUrl').val(conversation.meeting.joinUrl());
-
-            //Store meetingUri and joinUrl in localStorage
-            if (typeof (Storage) !== "undefined") {
-
-                localStorage.setItem("meetingUri", conversation.meeting.uri());
-                localStorage.setItem("joinUrl", conversation.meeting.joinUrl());
-
-            }
-            debugger;
-
           
             ////start video service
             //videomeeting = conversation.videoservice.start().then(function () {
@@ -196,25 +186,6 @@ $(function () {
     }
     
 
-    //To store data in sqlite
-    function SaveInSQLite(meetingUri, joinUrl)
-    {
-        var createStatement = "CREATE TABLE IF NOT EXISTS Contacts (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, useremail TEXT)";
-
-        if (!window.openDatabase)  // Check browser is supported SQLite or not.
-
-        {
-
-            alert('Databases are not supported in this browser.');
-
-        }
-
-        else {
-
-            createTable();  // If supported then call Function for create table in SQLite
-
-        }
-    }
     //Get Presence of Provider
     function SubscribeToUser(providerSIP) {
         

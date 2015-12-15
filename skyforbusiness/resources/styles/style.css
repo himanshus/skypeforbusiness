@@ -28,11 +28,11 @@
 
 @font-face {
     font-family: "SkypeIcon";
-    src: url('resources/fonts/SkypeIcon.eot?qgmikt');
-    src: url('resources/fonts/SkypeIcon.eot?#iefixqgmikt') format('embedded-opentype'),
-    url('resources/fonts/SkypeIcon.woff?qgmikt') format('woff'),
-    url('resources/fonts/SkypeIcon.ttf?qgmikt') format('truetype'),
-    url('resources/fonts/SkypeIcon.svg?qgmikt#SkypeIcon') format('svg');
+    src: url('../fonts/SkypeIcon.eot?qgmikt');
+    src: url('../fonts/SkypeIcon.eot?#iefixqgmikt') format('embedded-opentype'),
+    url('../fonts/SkypeIcon.woff?qgmikt') format('woff'),
+    url('../fonts/SkypeIcon.ttf?qgmikt') format('truetype'),
+    url('../fonts/SkypeIcon.svg?qgmikt#SkypeIcon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -82,12 +82,17 @@ body {
 }
 
 .menu {
-  position: absolute;
+  
   top: 0;
   left: 0;
   width: 290px;
+  float:left;
 }
 
+.provider-video {
+     width: 290px;
+    float:left;
+}
 .menu h2 {
   display: block;
   font-size: 1.5em;
@@ -137,10 +142,11 @@ body {
 }
 
 .content1{
-    width: 800px;
-    top: 0;
-    left: 290px;
-    position: absolute;
+    width:auto;
+    left:0px;
+    position:static;
+
+   
 }
 
 .login-options{
@@ -353,7 +359,6 @@ body {
 
 .audio-video-manager .chat-container{
   -display: none;
-  width: 260px;
   background-color: #F5FAFC;
   height: auto;
   color: #33353A;
@@ -537,9 +542,12 @@ body {
 
 .av-container{
   background-color: #0170ab;
-  height: 480px;
-  position: relative;
+  width: 800px;
+  height: 600px;
+  position:relative;
   display: none;
+  float: left;
+  margin-right: 12px;
 }
 
 .av-top{
@@ -584,6 +592,16 @@ body {
   width: 260px;
   height: 80px;
   text-align: center;
+}
+.ctr-skypebuttons{
+    position:static;
+    height: 64px;
+    width:400px;
+    text-align: center;
+    background-color: #0170ab;
+    vertical-align: bottom;
+    line-height: 88px;
+    display:none;
 }
 
 .hide{
@@ -641,11 +659,8 @@ body {
 }
 
 .render-window{
-  position: absolute;
-  top:116px;
-  left: 0px;
-  width: 260px;
-  height: 260px;
+  width:800px;
+  height:600px;
   display: none;
 }
 
@@ -750,16 +765,18 @@ body {
 }
 
 .video-list{
-  position: absolute;
+ 
   top: 260px;
   left: 390px;
 }
 
 .video-window{
-  width: 300px;
+  width: 400px;
   height: 300px;
+  left:700px;
   background-color: green;
-  margin-bottom: 8px;
+  margin-bottom: 37px;
+  display:none;
 }
 
 .tag {

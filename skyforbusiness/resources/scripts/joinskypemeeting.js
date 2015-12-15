@@ -24,7 +24,7 @@ $(function () {
          storing the meetingUri after scheduleMeeting implementation.
        */
 
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:YNWFFS4O";
+        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:5LOPYAFC";
        // meetingUri = localStorage.getItem("meetingUri"); //Get the value from localStorage
 
         //Join the conference using Provide credentials and meetingUri

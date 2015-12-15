@@ -67,10 +67,12 @@
     <Content Include="assets\thoughtstuff.png" />
     <Content Include="assets\Tom-Morgan.png" />
     <Content Include="MDLive\conference-meeting-url.html" />
+    <Content Include="patient-meeting-join.html" />
     <Content Include="patient-uri.html" />
     <Content Include="patient.html" />
     <Content Include="provider-anonymous.html" />
     <Content Include="provider.html" />
+    <Content Include="resources\scripts\patient-meeting-join.js" />
     <Content Include="resources\scripts\anonymous-conference-join-uri.js" />
     <Content Include="resources\scripts\schedule-meeting.js" />
     <Content Include="skypeactivity\patient-anonymous-join-uri.html" />

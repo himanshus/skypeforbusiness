@@ -20,7 +20,7 @@ $(function () {
           storing the joinUrl after scheduleMeeting implementation.
         */
 
-        joinUrl = "https://meet.metio.ms/samb078/YNWFFS4O";
+        joinUrl = "https://meet.metio.ms/samb078/LTQUFYSV";
         
         //joinUrl = localStorage.getItem("joinUrl"); //Get the value from localStorage
 
