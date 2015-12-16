@@ -57,31 +57,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\footer.html" />
-    <Content Include="assets\header.html" />
-    <Content Include="assets\layoutcodesample-min.js" />
-    <Content Include="assets\metro\css\metro-bootstrap.css" />
-    <Content Include="assets\metro\css\metro-bootstrap.min.css" />
-    <Content Include="assets\metro\fonts\font-awesome\0a799148.fontawesome-webfont.svg" />
-    <Content Include="assets\metro\fonts\glyphicons\32941d63.glyphicons-halflings-regular.svg" />
-    <Content Include="assets\thoughtstuff.png" />
-    <Content Include="assets\Tom-Morgan.png" />
-    <Content Include="MDLive\conference-meeting-url.html" />
-    <Content Include="patient-meeting-join.html" />
+    <Content Include="provider-anonymous-uri.html" />
     <Content Include="provider-uri.html" />
     <Content Include="patient-uri.html" />
-    <Content Include="patient.html" />
+    <Content Include="patient-url.html" />
     <Content Include="provider-url.html" />
-    <Content Include="provider.html" />
+    <Content Include="resources\scripts\provider-anonymous-conference-join-uri.js" />
     <Content Include="resources\scripts\provider-conference-join-uri.js" />
-    <Content Include="resources\scripts\patient-meeting-join.js" />
     <Content Include="resources\scripts\anonymous-conference-join-uri.js" />
     <Content Include="resources\scripts\schedule-meeting.js" />
-    <Content Include="skypeactivity\provider-conference-uri.html" />
+    <Content Include="skypeactivity\provider-anonymous-join-uri.html" />
+    <Content Include="skypeactivity\provider-conference-join-uri.html" />
     <Content Include="skypeactivity\patient-anonymous-join-uri.html" />
-    <Content Include="skypeactivity\patient-anonymous-join.html" />
-    <Content Include="skypeactivity\provider-conference-anonymous-join.html" />
-    <Content Include="skypeactivity\provider-conference-join.html" />
+    <Content Include="skypeactivity\patient-anonymous-join-url.html" />
+    <Content Include="skypeactivity\provider-conference-join-url.html" />
     <Content Include="resources\fonts\office365icons.eot" />
     <Content Include="resources\fonts\office365icons.ttf" />
     <Content Include="resources\fonts\office365icons.woff" />
@@ -94,14 +83,6 @@
     <Content Include="resources\fonts\SkypeIcon.eot" />
     <Content Include="resources\fonts\SkypeIcon.ttf" />
     <Content Include="resources\fonts\SkypeIcon.woff" />
-    <Content Include="assets\metro\css\metro-bootstrap.css.map" />
-    <Content Include="assets\metro\fonts\font-awesome\4587b062.fontawesome-webfont.ttf" />
-    <Content Include="assets\metro\fonts\font-awesome\8ebff60d.FontAwesome.otf" />
-    <Content Include="assets\metro\fonts\font-awesome\cf210dd5.fontawesome-webfont.eot" />
-    <Content Include="assets\metro\fonts\font-awesome\e683bb4d.fontawesome-webfont.woff" />
-    <Content Include="assets\metro\fonts\glyphicons\38e827a0.glyphicons-halflings-regular.ttf" />
-    <Content Include="assets\metro\fonts\glyphicons\deae260a.glyphicons-halflings-regular.woff" />
-    <Content Include="assets\metro\fonts\glyphicons\e56f39cb.glyphicons-halflings-regular.eot" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -114,26 +95,11 @@
     <Content Include="resources\images\default.png" />
     <Content Include="resources\images\loading.gif" />
     <Content Include="resources\images\loading.png" />
-    <Content Include="resources\scripts\anonymous-conference-join.js" />
-    <Content Include="resources\scripts\anonymous-sign-in.js" />
+    <Content Include="resources\scripts\anonymous-conference-join-url.js" />
     <Content Include="resources\scripts\common.js" />
-    <Content Include="resources\scripts\conferencemetingurl.js" />
-    <Content Include="resources\scripts\joinconference.js" />
-    <Content Include="resources\scripts\presence.js" />
-    <Content Include="resources\scripts\sign-in.js" />
-    <Content Include="resources\scripts\skywebsdk.js" />
-    <Content Include="resources\styles\common.css" />
     <Content Include="resources\scripts\site.js" />
     <Content Include="resources\styles\style.css" />
-    <Content Include="master.html" />
-    <Content Include="skypeactivity\anonymous-conference-join.html" />
-    <Content Include="resources\scripts\joinskypemeeting.js" />
-    <Content Include="skypeactivity\presence.html" />
-    <Content Include="skypeactivity\joinconference.html" />
-    <Content Include="skypeactivity\conferencemetingurl.html" />
-    <Content Include="skypeactivity\anonymous-sign-in.html" />
     <Content Include="skypeactivity\schedule-meeting.html" />
-    <Content Include="skypeactivity\sign-in.html" />
     <Content Include="system.html" />
     <Content Include="Web.config" />
   </ItemGroup>
