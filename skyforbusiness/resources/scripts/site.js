@@ -5,7 +5,7 @@
     $(".menu li a").click(function(){
         var module = this.id;
         if (module == 'anonymous-sign-in' || module == 'sign-in' || window.skypeWebApp && window.skypeWebApp.signInManager.state() == "SignedIn" || module == 'anonymous-conference-join'
-            || module == 'provider' || module == 'patient-anonymous-join' || module == 'provider-conference-join' || module == 'schedule-meeting' || module == 'provider-conference-anonymous-join' || module == 'patient-anonymous-join-uri' ) {
+            || module == 'provider' || module == 'patient-anonymous-join' || module == 'provider-conference-join' || module == 'schedule-meeting' || module == 'provider-conference-anonymous-join' || module == 'patient-anonymous-join-uri' || module == 'provider-conference-uri' ) {
             if($(this).hasClass("disable")){
                 return;
             }

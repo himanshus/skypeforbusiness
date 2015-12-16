@@ -21,7 +21,7 @@ $(function () {
        we need to get this value from DB or any other storage based on
        storing the meetingUri after scheduleMeeting implementation.
        */
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:KMPJOKIQ";
+        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:CEVYS728";
 
         //Join the existing meeting using UserName and meetingUris
         JoinConferenceAnonymously(userName, meetingUri);

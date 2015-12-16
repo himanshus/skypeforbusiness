@@ -68,13 +68,16 @@
     <Content Include="assets\Tom-Morgan.png" />
     <Content Include="MDLive\conference-meeting-url.html" />
     <Content Include="patient-meeting-join.html" />
+    <Content Include="provider-uri.html" />
     <Content Include="patient-uri.html" />
     <Content Include="patient.html" />
-    <Content Include="provider-anonymous.html" />
+    <Content Include="provider-url.html" />
     <Content Include="provider.html" />
+    <Content Include="resources\scripts\provider-conference-join-uri.js" />
     <Content Include="resources\scripts\patient-meeting-join.js" />
     <Content Include="resources\scripts\anonymous-conference-join-uri.js" />
     <Content Include="resources\scripts\schedule-meeting.js" />
+    <Content Include="skypeactivity\provider-conference-uri.html" />
     <Content Include="skypeactivity\patient-anonymous-join-uri.html" />
     <Content Include="skypeactivity\patient-anonymous-join.html" />
     <Content Include="skypeactivity\provider-conference-anonymous-join.html" />
