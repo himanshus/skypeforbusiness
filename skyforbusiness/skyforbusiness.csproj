@@ -57,19 +57,19 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="provider-anonymous-uri.html" />
-    <Content Include="provider-uri.html" />
+    <Content Include="patient_login.html" />
+    <Content Include="provider_login.html" />
+    <Content Include="provider_login_launch_uri.html" />
     <Content Include="patient-uri.html" />
-    <Content Include="patient-url.html" />
-    <Content Include="provider-url.html" />
-    <Content Include="resources\scripts\provider-anonymous-conference-join-uri.js" />
+    <Content Include="provider_launch_url.html" />
+    <Content Include="resources\scripts\patient-login.js" />
+    <Content Include="resources\scripts\provider-login.js" />
     <Content Include="resources\scripts\provider-conference-join-uri.js" />
     <Content Include="resources\scripts\anonymous-conference-join-uri.js" />
+    <Content Include="resources\scripts\presence-status.js" />
     <Content Include="resources\scripts\schedule-meeting.js" />
-    <Content Include="skypeactivity\provider-anonymous-join-uri.html" />
     <Content Include="skypeactivity\provider-conference-join-uri.html" />
     <Content Include="skypeactivity\patient-anonymous-join-uri.html" />
-    <Content Include="skypeactivity\patient-anonymous-join-url.html" />
     <Content Include="skypeactivity\provider-conference-join-url.html" />
     <Content Include="resources\fonts\office365icons.eot" />
     <Content Include="resources\fonts\office365icons.ttf" />
@@ -95,11 +95,13 @@
     <Content Include="resources\images\default.png" />
     <Content Include="resources\images\loading.gif" />
     <Content Include="resources\images\loading.png" />
-    <Content Include="resources\scripts\anonymous-conference-join-url.js" />
+    <Content Include="resources\scripts\conference-join-url.js" />
     <Content Include="resources\scripts\common.js" />
     <Content Include="resources\scripts\site.js" />
     <Content Include="resources\styles\style.css" />
+    <Content Include="skypeactivity\presence-status.html" />
     <Content Include="skypeactivity\schedule-meeting.html" />
+    <Content Include="presence-status.html" />
     <Content Include="system.html" />
     <Content Include="Web.config" />
   </ItemGroup>

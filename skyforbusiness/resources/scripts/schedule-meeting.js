@@ -7,8 +7,8 @@
 $(function () {
     'use strict';
 
-    var client = window.skypeWebApp;
-
+       var client = window.skypeWebApp;
+       
     //Provider SIP to be used to get Provider status
     var providerSIP = "kima078@metio.ms"; 
 

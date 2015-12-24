@@ -1,6 +1,6 @@
 ﻿
- /* This script demonstrates how to Sign in the anonymous user using the meeting URI
- */
+/* This script demonstrates how to Sign in the anonymous user using the meeting URI
+*/
 
 $(function () {
     'use strict';
@@ -11,7 +11,7 @@ $(function () {
     // when the user clicks on the "Start Conference" button
     $('#joinConference').click(function () {
 
-       
+
         var userName, password, meetingUri;
         // $(".modal").show();
 
@@ -24,43 +24,49 @@ $(function () {
        we need to get this value from DB or any other storage based on
        storing the meetingUri after scheduleMeeting implementation.
        */
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:CEVYS728";
+        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:14UDSD9R";
 
         //Join the existing meeting using UserName password and meetingUris
         JoinConference(userName, password, meetingUri);
-        
+
     });
 
-    /* To mute and unmute audio of the conversation
-    
+    /* To mute and unmute audio of the conversation 
    */
     $('.mute, .unmute').click(function () {
 
-       // alert("mute click");
-        
+        // alert("mute click");
+
         var conversation = client.conversations(0), audio;
 
         if (conversation) {
 
             audio = conversation.selfParticipant.audio;
 
+            // alert(audio.isMuted());
+
             if (audio.isMuted()) {
-                //alert("Muted");
+
+                // alert("Muted");
                 $(".unmute").addClass("hide");
                 $(".mute").removeClass("hide");
             }
             else {
-               // alert("Unmuted");
+
+                // alert("Unmuted");
                 $(".unmute").removeClass("hide");
                 $(".mute").addClass("hide");
             }
 
+
+
             audio.isMuted.set(!audio.isMuted());
+
+            //alert(audio.isMuted());
         }
     });
 
-    /* To Start and stop self video in conversation
-   
+    /* To Start and stop self video in conversation 
   */
     $('.hide-video, .show-video').click(function () {
 
@@ -96,6 +102,9 @@ $(function () {
 
         if (conversation) {
             dfd = conversation.audioService.stop();
+
+            conversation.leave();
+
         }
     });
 
@@ -112,10 +121,9 @@ $(function () {
        storing the meetingUri after scheduleMeeting implementation.
       
      */
-    function JoinConference(userName, password, meetingUri)
-    {
-        alert("Thank you for joining! Please wait...");
+    function JoinConference(userName, password, meetingUri) {
 
+        alert("Thank you for joining! Please wait...");
 
         // SignIn as anonymous user using conference URI
         client.signInManager.signIn({
@@ -129,14 +137,11 @@ $(function () {
 
             alert('Signed in as: ' + client.personsAndGroupsManager.mePerson.displayName());
 
-           
+
 
             var addedListener = client.conversations.added(function (conversation) {
                 var chatService, audioService, videoService;
 
-                chatService = conversation.chatService;
-                audioService = conversation.audioService;
-                videoService = conversation.videoService;
 
                 // participant added to conversation
                 conversation.participants.added(function (participant) {
@@ -147,17 +152,18 @@ $(function () {
                         onChanged('_participant.video.state', newState, reason, oldState);
 
 
-                         //a convenient place to set the video stream container 
+                        //a convenient place to set the video stream container 
                         if (newState == 'Connected') {
                             participant.video.channels(0).stream.state.changed(function (ns, r, os) {
                                 onChanged('_participant.video.channels(0).stream.state', ns, r, os);
                             });
-                            
+
                             //alert("Participant Size   " + conversation.participants.size());
 
-                            if (conversation.participants.size() == 1)
-                            {                              
-                                alert("please wait..");
+                            if (conversation.participants.size() == 1) {
+                                alert(conversation.participants(0).displayName() + " has just joined the meeting");
+
+
                                 // setTimeout is a workaround
                                 setTimeout(function () {
                                     participant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
@@ -165,24 +171,24 @@ $(function () {
                                             participant.video.channels(0).isStarted(true);
                                         }, 0)
                                     });
-                                }, 6000);
+                                }, 3000);
                             }
-                            else
-                            {
-                               // alert("Participant Size   " + conversation.participants.size());
+                            else {
+                                // alert("Participant Size   " + conversation.participants.size());
 
-                                alert("Please  wait...");
+                                var partcipant = conversation.participants(conversation.participants.size() - 1);
 
-                                var partcipant = conversation.participants(0);
+                                alert(partcipant.displayName() + "has just joined the meeting");
+
 
                                 partcipant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
 
-                                partcipant.video.channels(0).isStarted(true);
+                                    partcipant.video.channels(0).isStarted(true);
                                 });
 
-                             
+
                             }
-                            
+
                         }
                     });
 
@@ -191,7 +197,7 @@ $(function () {
                     });
                 });
 
-                
+
                 conversation.participants.removed(function (participant) {
 
                     participant.video.state.changed(function (newState, reason, oldState) {
@@ -199,10 +205,10 @@ $(function () {
                         onChanged('_participant.video.state', newState, reason, oldState);
 
                         participant.video.channels(0).stream.source.sink.container(document.getElementById('render-p-window'));
-                        participant.video.channels(0).isStarted.set(false);                
+                        participant.video.channels(0).isStarted.set(false);
                     });
 
-                   
+
                 });
 
                 conversation.selfParticipant.audio.state.changed(function (newState, reason, oldState) {
@@ -211,7 +217,7 @@ $(function () {
 
                 //conversation.selfParticipant.video.state.changed(function (newState, reason, oldState) {
 
-                    
+                //    alert("Self Participant video state changed");
 
                 //    var selfChannel;
                 //    onChanged('selfParticipant.video.state', newState, reason, oldState);
@@ -220,7 +226,7 @@ $(function () {
 
                 //        alert("You have joined the meeting...");
 
-                     
+
 
                 //        $(".av-container").show();
                 //        $(".render-window").show();
@@ -229,19 +235,19 @@ $(function () {
                 //        selfChannel.stream.source.sink.container.set(document.getElementById("render-self-window")).then(function () {
                 //            selfChannel.isStarted(true);
                 //        });                            
-                       
+
                 //    }
                 //});
 
             });
 
-           
+
 
             alert("Start Video Meeting....")
-            
+
             //Join an existing meeting
             JoinExistingConference(meetingUri);
-           
+
 
         }, function (error) {
 
@@ -254,9 +260,6 @@ $(function () {
         });
     }
 
-  
-
-
     /* Join an existing meeting
      @param {String} meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
       we need to get this value from DB or any other storage based on
@@ -267,24 +270,24 @@ $(function () {
 
         var conversation, videomeeting;
 
-         //Get an instance of Conversation
+        //Get an instance of Conversation
         conversation = client.conversationsManager.getConversationByUri(meetingUri);
 
         var selfChannel, remoteChannel;
 
-         //Start Video
-         videomeeting = conversation.videoService.start().then(function () {
+        //Start Video
+        videomeeting = conversation.videoService.start().then(function () {
 
-            
+
             $(".video-window").show(); // Show self participant video container
             $(".ctr-skypebuttons").show(); //Show skype buttons
             $(".show-video").addClass("hide"); // hide show-video button by default
             $(".hide-video").removeClass("hide"); //show hide-video button by default
 
             $(".av-container").show(); //show remote video container
-            $(".render-window").show(); 
+            $(".render-window").show();
 
-                    
+
             alert("Video meeting started....");
 
             //Show the self participant video
@@ -293,11 +296,10 @@ $(function () {
                 selfChannel.isStarted.set(true);
             });
 
-            
+
 
             //If remote participant has already joined the meeting, then remove the video first  and add video
-            if (conversation.participants.size() == 1)
-            {
+            if (conversation.participants.size() == 1) {
                 alert("Please wait to see remote participant video. Thank you!!");
 
 
@@ -321,7 +323,7 @@ $(function () {
                     });
                 }, 4000);
             }
-           
+
 
         });
 

@@ -21,7 +21,7 @@ $(function () {
        we need to get this value from DB or any other storage based on
        storing the meetingUri after scheduleMeeting implementation.
        */
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:CEVYS728";
+        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:14UDSD9R";
 
         //Join the existing meeting using UserName and meetingUris
         JoinConferenceAnonymously(userName, meetingUri);
@@ -92,7 +92,12 @@ $(function () {
         var conversation = client.conversations(0), dfd;
 
         if (conversation) {
+
+            //Stop audio service
             dfd = conversation.audioService.stop();
+
+            //Leave the conversation
+            conversation.leave();
         }
     });
 
@@ -110,6 +115,8 @@ $(function () {
      */
     function JoinConferenceAnonymously(userName, meetingUri)
     {
+       
+        
         alert("Thank you for joining! Please wait...");
 
 
@@ -153,7 +160,8 @@ $(function () {
 
                             if (conversation.participants.size() == 1)
                             {                              
-                                alert("please wait..");
+                                alert(conversation.participants(0).displayName() + " has just joined the meeting");
+
                                 // setTimeout is a workaround
                                 setTimeout(function () {
                                     participant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
@@ -161,15 +169,15 @@ $(function () {
                                             participant.video.channels(0).isStarted(true);
                                         }, 0)
                                     });
-                                }, 6000);
+                                }, 3000);
                             }
                             else
                             {
-                               // alert("Participant Size   " + conversation.participants.size());
+                               // alert("Participant Size   " + conversation.participants.size());                               
+                                 
+                                var partcipant = conversation.participants(conversation.participants.size() - 1);
 
-                                alert("Please  wait...");
-
-                                var partcipant = conversation.participants(0);
+                                alert(partcipant.displayName() + "has just joined the meeting");
 
                                 partcipant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
 
@@ -208,25 +216,25 @@ $(function () {
                 //conversation.selfParticipant.video.state.changed(function (newState, reason, oldState) {
 
                     
+                //    alert("Self participant video state changed");
+                //    //var selfChannel;
+                //    //onChanged('selfParticipant.video.state', newState, reason, oldState);
 
-                //    var selfChannel;
-                //    onChanged('selfParticipant.video.state', newState, reason, oldState);
+                //    //if (newState == 'Connected') {
 
-                //    if (newState == 'Connected') {
-
-                //        alert("You have joined the meeting...");
+                //    //    alert("You have joined the meeting...");
 
                      
 
-                //        $(".av-container").show();
-                //        $(".render-window").show();
+                //    //    $(".av-container").show();
+                //    //    $(".render-window").show();
 
-                //        selfChannel = conversation.selfParticipant.video.channels(0);
-                //        selfChannel.stream.source.sink.container.set(document.getElementById("render-self-window")).then(function () {
-                //            selfChannel.isStarted(true);
-                //        });                            
+                //    //    selfChannel = conversation.selfParticipant.video.channels(0);
+                //    //    selfChannel.stream.source.sink.container.set(document.getElementById("render-self-window")).then(function () {
+                //    //        selfChannel.isStarted(true);
+                //    //    });                            
                        
-                //    }
+                //    //}
                 //});
 
             });
@@ -315,7 +323,7 @@ $(function () {
                             remoteChannel.isStarted.set(true);
                         }, 0)
                     });
-                }, 4000);
+                }, 3000);
             }
            
 
