@@ -1,63 +1,168 @@
 ﻿
- /* This script demonstrates how to Sign in the anonymous user using the meeting URI
- */
+/* This script demonstrates how to Sign in the anonymous user using the meeting URI
+*/
 
 $(function () {
     'use strict';
 
-    var client = window.skypeWebApp;
+    var client;
 
+    alert("Please wait to get patient status");
+
+    $(".modal").show();
+
+    var userName, password, meetingUri;
+    // $(".modal").show();
+
+    //Provider UserName
+    userName = "kima078@metio.ms";
+    //Provider Passwork
+    password = "UCW4*fun!";
+
+    /*Get the meetingUri after scheduling the meeting. In real implementation,
+   we need to get this value from DB or any other storage based on
+   storing the meetingUri after scheduleMeeting implementation.
+   */
+    meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:14UDSD9R";
+
+
+    //Patient SIP used to know meeting joining status
+    var patientSIP = "christinek078@metio.ms";
+
+
+
+    Skype.initialize({
+        apiKey: 'SWX-BUILD-SDK',
+    }, function (api) {
+
+        client = new api.application();
+
+        SignIn(userName, password);
+
+    }, function (error) {
+        alert('some error occurred: ' + error);
+    });
+
+   
+    function SignIn(userName, password)
+    {
+       // alert("Inside Sign IN");
+
+        // start signing in
+        client.signInManager.signIn({
+            username: userName,
+            password: password
+        }).then(function () {
+
+            //log in worked!
+           // alert('Logged in!');
+
+            $(".modal").hide();
+
+            SubscribeToUser(patientSIP);
+
+
+        }, function (error) {
+            //Something went wrong.
+            alert(error);
+        });
+
+    }
+    
+    //Get Patient meeting joining status
+    function SubscribeToUser(patient) {
+
+        
+
+        //alert(patient);
+        var query = client.personsAndGroupsManager.createPersonSearchQuery();
+        query.text(patient);
+        query.limit(10);
+
+
+        query.getMore().then(function (results) {
+
+            results.forEach(function (result) {
+
+                var person = result.result;
+
+           
+                // alert("Inside results");
+
+                //Get Name
+                person.displayName.get().then(function (name) {
+                    $('#patientName').text("Name: " + name);
+                });
+
+                //activity
+                person.activity.get().then(function (activity) {
+                    $('#activity').text("Activity: " + activity);
+                });
+
+
+
+                //Update Activity
+                person.activity.changed(function (activity) {
+                    // alert(status);
+                    $('#activity').text("Activity: " + activity);
+                });
+
+                person.displayName.subscribe();
+                person.activity.subscribe();
+
+
+            });
+
+        }).then(null, function (error) {
+            alert('Error:', error);
+        });
+
+    }
 
     // when the user clicks on the "Start Conference" button
     $('#joinConference').click(function () {
 
-       
-        var userName, meetingUri;
-        // $(".modal").show();
+            //Join the existing meeting using UserName password and meetingUris
+            JoinConference(userName, password, meetingUri);
 
-        userName = "Anonymous Provider";
-
-        /*Get the meetingUri after scheduling the meeting. In real implementation,
-       we need to get this value from DB or any other storage based on
-       storing the meetingUri after scheduleMeeting implementation.
-       */
-        meetingUri = "sip:samb078@metio.ms;gruu;opaque=app:conf:focus:id:CEVYS728";
-
-        //Join the existing meeting using UserName and meetingUris
-        JoinConferenceAnonymously(userName, meetingUri);
-        
     });
 
-    /* To mute and unmute audio of the conversation
-    
+    /* To mute and unmute audio of the conversation 
    */
     $('.mute, .unmute').click(function () {
 
-       // alert("mute click");
-        
+        // alert("mute click");
+
         var conversation = client.conversations(0), audio;
 
         if (conversation) {
 
             audio = conversation.selfParticipant.audio;
 
+            // alert(audio.isMuted());
+
             if (audio.isMuted()) {
-                //alert("Muted");
+
+                // alert("Muted");
                 $(".unmute").addClass("hide");
                 $(".mute").removeClass("hide");
             }
             else {
-               // alert("Unmuted");
+
+                // alert("Unmuted");
                 $(".unmute").removeClass("hide");
                 $(".mute").addClass("hide");
             }
 
+
+
             audio.isMuted.set(!audio.isMuted());
+
+            //alert(audio.isMuted());
         }
     });
 
-    /* To Start and stop self video in conversation
-   
+    /* To Start and stop self video in conversation 
   */
     $('.hide-video, .show-video').click(function () {
 
@@ -93,6 +198,9 @@ $(function () {
 
         if (conversation) {
             dfd = conversation.audioService.stop();
+
+            conversation.leave();
+
         }
     });
 
@@ -101,38 +209,21 @@ $(function () {
             'color:green;font-weight:bold', 'Reason: ', reason);
     }
 
-    /* Join conference by Patient using meetingUri
-      @param {String} userName - Patient User Name
+    /* Join conference by Provider using meetingUri
+      @param {String} userName - Provider User Name
+      @param {String} password - Provider Password
       @param {String} meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
        we need to get this value from DB or any other storage based on
        storing the meetingUri after scheduleMeeting implementation.
       
      */
-    function JoinConferenceAnonymously(userName, meetingUri)
-    {
+    function JoinConference(userName, password, meetingUri) {
+
         alert("Thank you for joining! Please wait...");
-
-
-        // SignIn as anonymous user using conference URI
-        client.signInManager.signIn({
-
-            name: userName,
-            meeting: meetingUri
-
-        }).then(function () {
-
-            $(".modal").hide();
-
-            alert('Signed in as: ' + client.personsAndGroupsManager.mePerson.displayName());
-
-           
 
             var addedListener = client.conversations.added(function (conversation) {
                 var chatService, audioService, videoService;
 
-                chatService = conversation.chatService;
-                audioService = conversation.audioService;
-                videoService = conversation.videoService;
 
                 // participant added to conversation
                 conversation.participants.added(function (participant) {
@@ -143,17 +234,18 @@ $(function () {
                         onChanged('_participant.video.state', newState, reason, oldState);
 
 
-                         //a convenient place to set the video stream container 
+                        //a convenient place to set the video stream container 
                         if (newState == 'Connected') {
                             participant.video.channels(0).stream.state.changed(function (ns, r, os) {
                                 onChanged('_participant.video.channels(0).stream.state', ns, r, os);
                             });
-                            
+
                             //alert("Participant Size   " + conversation.participants.size());
 
-                            if (conversation.participants.size() == 1)
-                            {                              
-                                alert("please wait..");
+                            if (conversation.participants.size() == 1) {
+                                alert(conversation.participants(0).displayName() + " has just joined the meeting");
+
+
                                 // setTimeout is a workaround
                                 setTimeout(function () {
                                     participant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
@@ -161,24 +253,24 @@ $(function () {
                                             participant.video.channels(0).isStarted(true);
                                         }, 0)
                                     });
-                                }, 6000);
+                                }, 3000);
                             }
-                            else
-                            {
-                               // alert("Participant Size   " + conversation.participants.size());
+                            else {
+                                // alert("Participant Size   " + conversation.participants.size());
 
-                                alert("Please  wait...");
+                                var partcipant = conversation.participants(conversation.participants.size() - 1);
 
-                                var partcipant = conversation.participants(0);
+                                alert(partcipant.displayName() + "has just joined the meeting");
+
 
                                 partcipant.video.channels(0).stream.source.sink.container.set(document.getElementById("render-p-window")).then(function () {
 
-                                partcipant.video.channels(0).isStarted(true);
+                                    partcipant.video.channels(0).isStarted(true);
                                 });
 
-                             
+
                             }
-                            
+
                         }
                     });
 
@@ -187,7 +279,7 @@ $(function () {
                     });
                 });
 
-                
+
                 conversation.participants.removed(function (participant) {
 
                     participant.video.state.changed(function (newState, reason, oldState) {
@@ -195,10 +287,10 @@ $(function () {
                         onChanged('_participant.video.state', newState, reason, oldState);
 
                         participant.video.channels(0).stream.source.sink.container(document.getElementById('render-p-window'));
-                        participant.video.channels(0).isStarted.set(false);                
+                        participant.video.channels(0).isStarted.set(false);
                     });
 
-                   
+
                 });
 
                 conversation.selfParticipant.audio.state.changed(function (newState, reason, oldState) {
@@ -207,7 +299,7 @@ $(function () {
 
                 //conversation.selfParticipant.video.state.changed(function (newState, reason, oldState) {
 
-                    
+                //    alert("Self Participant video state changed");
 
                 //    var selfChannel;
                 //    onChanged('selfParticipant.video.state', newState, reason, oldState);
@@ -216,7 +308,7 @@ $(function () {
 
                 //        alert("You have joined the meeting...");
 
-                     
+
 
                 //        $(".av-container").show();
                 //        $(".render-window").show();
@@ -225,33 +317,21 @@ $(function () {
                 //        selfChannel.stream.source.sink.container.set(document.getElementById("render-self-window")).then(function () {
                 //            selfChannel.isStarted(true);
                 //        });                            
-                       
+
                 //    }
                 //});
 
             });
 
-           
+
 
             alert("Start Video Meeting....")
-            
+
             //Join an existing meeting
             JoinExistingConference(meetingUri);
-           
 
-        }, function (error) {
 
-            // if something goes wrong in either of the steps above,
-            // display the error message
-            $(".modal").hide();
-            alert("Can't sign in, please check the meeting URI ");
-            window.location.reload();
-            console.log(error || 'Cannot sign in');
-        });
     }
-
-  
-
 
     /* Join an existing meeting
      @param {String} meetingUri -  Get the meetingUri after scheduling the meeting. In real implementation,
@@ -263,24 +343,24 @@ $(function () {
 
         var conversation, videomeeting;
 
-         //Get an instance of Conversation
+        //Get an instance of Conversation
         conversation = client.conversationsManager.getConversationByUri(meetingUri);
 
         var selfChannel, remoteChannel;
 
-         //Start Video
-         videomeeting = conversation.videoService.start().then(function () {
+        //Start Video
+        videomeeting = conversation.videoService.start().then(function () {
 
-            
+
             $(".video-window").show(); // Show self participant video container
             $(".ctr-skypebuttons").show(); //Show skype buttons
             $(".show-video").addClass("hide"); // hide show-video button by default
             $(".hide-video").removeClass("hide"); //show hide-video button by default
 
             $(".av-container").show(); //show remote video container
-            $(".render-window").show(); 
+            $(".render-window").show();
 
-                    
+
             alert("Video meeting started....");
 
             //Show the self participant video
@@ -289,11 +369,10 @@ $(function () {
                 selfChannel.isStarted.set(true);
             });
 
-            
+
 
             //If remote participant has already joined the meeting, then remove the video first  and add video
-            if (conversation.participants.size() == 1)
-            {
+            if (conversation.participants.size() == 1) {
                 alert("Please wait to see remote participant video. Thank you!!");
 
 
@@ -317,7 +396,7 @@ $(function () {
                     });
                 }, 4000);
             }
-           
+
 
         });
 
